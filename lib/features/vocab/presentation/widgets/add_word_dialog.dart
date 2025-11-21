@@ -5,7 +5,9 @@ class AddWordDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text("Add New Word"),
-      content: Column(),
+      content: Column(
+        
+      ),
     );
   }
 } 
