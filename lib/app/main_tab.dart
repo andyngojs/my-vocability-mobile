@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_vocability/features/flashcard/presentation/pages/flashcard_page.dart';
-import 'package:my_vocability/features/more/presentation/more_page.dart';
+import 'package:my_vocability/features/more/presentation/pages/more_page.dart';
 import 'package:my_vocability/features/vocab/presentation/pages/vocab_page.dart';
 
 class MainTabPage extends StatefulWidget {

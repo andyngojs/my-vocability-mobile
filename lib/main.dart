@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:my_vocability/features/flashcard/presentation/cubit/flashcard_cubit.dart';
 import 'package:my_vocability/features/vocab/presentation/cubit/vocab_cubit.dart';
 
 import 'package:my_vocability/routes/route_generator.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => VocabCubit()),
+        BlocProvider(create: (_) => FlashcardCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

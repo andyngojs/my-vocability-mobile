@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_vocability/features/flashcard/presentation/cubit/flashcard_cubit.dart';
 
 class FlashcardPage extends StatefulWidget {
   @override
@@ -6,10 +8,10 @@ class FlashcardPage extends StatefulWidget {
 }
 
 class _FlashcardPageState extends State<FlashcardPage> {
-
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text("FlashCard"),
+    return BlocBuilder<FlashcardCubit, int>(
+      builder: (_ctx, state) =>
+          SafeArea(child: Scaffold(body: Text("FlashCard page"))),
     );
   }
 }
