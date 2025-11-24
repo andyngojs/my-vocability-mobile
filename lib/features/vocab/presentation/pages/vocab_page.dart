@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_vocability/features/vocab/domain/entities/vocabulary.dart';
 import 'package:my_vocability/features/vocab/presentation/cubit/vocab_cubit.dart';
 
 import 'package:my_vocability/features/vocab/presentation/widgets/add_word_dialog.dart';
@@ -13,8 +14,17 @@ class VocabPage extends StatefulWidget {
 
 class _VocabPageState extends State<VocabPage> {
 
+  void handleAddNewWord() {
+    context.read<VocabCubit>().addWord(Vocabulary(
+      name: "Apple",
+      meaning: "Quả táo",
+      wordType: "Noun",
+      phonetic: "/ˈæp.əl/",
+    ));
+  }
+
   void showAddNewWordDialog(BuildContext context) async {
-    await showDialog(context: context, builder: (_) => AddWordDialog());
+    await showDialog(context: context, builder: (_) => AddWordDialog(onAddWord: () => handleAddNewWord()));
   }
 
   @override
@@ -31,7 +41,7 @@ class _VocabPageState extends State<VocabPage> {
                 child: SizedBox(
                   width: double.infinity,
                   child: FilledButton(
-                    onPressed: () => showAddNewWordDialog(context),
+                    onPressed: () => showAddNewWordDialog(_context),
                     style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.blueGrey)),
                     child: Text('Create new word'),
                   ),

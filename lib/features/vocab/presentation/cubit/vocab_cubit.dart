@@ -20,6 +20,7 @@ class VocabCubit extends Cubit<VocabularyState> {
   };
 
   void addWord(Vocabulary word) {
+    print("add word in cubit" + word.name.toString());
     final newList = List<Vocabulary>.from(state.words)..add(word);
     emit(state.copyWith(words: newList));
   }

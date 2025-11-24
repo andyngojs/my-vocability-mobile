@@ -4,7 +4,9 @@ class AddWordDialog extends StatelessWidget {
   final _newWordController = TextEditingController();
   final _meaningController = TextEditingController();
 
-  AddWordDialog({super.key});
+  final Function onAddWord;
+
+  AddWordDialog({super.key, required this.onAddWord});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,7 @@ class AddWordDialog extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: () => {},
+                onPressed: () => onAddWord(),
                 style: ButtonStyle(),
                 child: Text('Add'),
               ),
