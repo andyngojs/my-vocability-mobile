@@ -1,11 +1,26 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class VocabCubit extends Cubit<int> {
-  VocabCubit() : super(0);
+import '../../domain/entities/vocabulary.dart';
+
+class VocabularyState {
+  final List<Vocabulary> words;
+
+  VocabularyState({this.words = const []});
+
+  VocabularyState copyWith({List<Vocabulary>? words}) {
+    return VocabularyState(words: words ?? this.words);
+  }
+}
+
+class VocabCubit extends Cubit<VocabularyState> {
+  VocabCubit() : super(VocabularyState());
 
   void increment() => {
-    print("increment in cubit"),
-    emit(state + 1)
+    print("increment in cubit")
   };
-  void decrement() => emit(state - 1);
+
+  void addWord(Vocabulary word) {
+    final newList = List<Vocabulary>.from(state.words)..add(word);
+    emit(state.copyWith(words: newList));
+  }
 }

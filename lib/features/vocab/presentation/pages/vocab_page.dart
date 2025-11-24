@@ -5,6 +5,8 @@ import 'package:my_vocability/features/vocab/presentation/cubit/vocab_cubit.dart
 import 'package:my_vocability/features/vocab/presentation/widgets/add_word_dialog.dart';
 
 class VocabPage extends StatefulWidget {
+  const VocabPage({super.key});
+
   @override
   State<VocabPage> createState() => _VocabPageState();
 }
@@ -17,7 +19,7 @@ class _VocabPageState extends State<VocabPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<VocabCubit, int>(
+    return BlocBuilder<VocabCubit, VocabularyState>(
       builder: (_context, state) => SafeArea(
         child: Scaffold(
           appBar: AppBar(title: Text('Vocabulary'), centerTitle: false),
@@ -36,17 +38,7 @@ class _VocabPageState extends State<VocabPage> {
                 ),
               ),
 
-              Text('Vocab Page ${state.toString()}'),
-
-              FloatingActionButton(
-                onPressed: () => _context.read<VocabCubit>().increment(),
-                child: Text('+'),
-              ),
-
-              FloatingActionButton(
-                onPressed: () => _context.read<VocabCubit>().decrement(),
-                child: Text('-'),
-              ),
+              Text('Vocab Page'),
             ],
           ),
         ),
