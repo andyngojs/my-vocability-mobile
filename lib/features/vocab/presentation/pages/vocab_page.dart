@@ -13,18 +13,24 @@ class VocabPage extends StatefulWidget {
 }
 
 class _VocabPageState extends State<VocabPage> {
-
-  void handleAddNewWord() {
-    context.read<VocabCubit>().addWord(Vocabulary(
-      name: "Apple",
-      meaning: "Quả táo",
-      wordType: "Noun",
-      phonetic: "/ˈæp.əl/",
-    ));
+  void handleAddNewWord(String newWord, String meaning, String wordType) {
+    final vocabulary = Vocabulary(
+      name: newWord,
+      meaning: meaning,
+      wordType: wordType,
+      phonetic: '',
+    );
+    context.read<VocabCubit>().addWord(vocabulary);
   }
 
   void showAddNewWordDialog(BuildContext context) async {
-    await showDialog(context: context, builder: (_) => AddWordDialog(onAddWord: () => handleAddNewWord()));
+    await showDialog(
+      context: context,
+      builder: (_) => AddWordDialog(
+        onAddWord: (String newWord, String meaning, String wordType) =>
+            handleAddNewWord(newWord, meaning, wordType),
+      ),
+    );
   }
 
   @override
@@ -42,13 +48,31 @@ class _VocabPageState extends State<VocabPage> {
                   width: double.infinity,
                   child: FilledButton(
                     onPressed: () => showAddNewWordDialog(_context),
-                    style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.blueGrey)),
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(Colors.blueGrey),
+                    ),
                     child: Text('Create new word'),
                   ),
                 ),
               ),
 
-              Text('Vocab Page'),
+              SizedBox(height: 12),
+
+              Expanded(
+                child: ListView.builder(
+                  itemCount: state.words.length,
+                  itemBuilder: (context, index) {
+                    final vocab = state.words[index];
+                    return ListTile(
+                      title: Text(vocab.name),
+                      subtitle: Text(vocab.meaning),
+                      trailing: Text(vocab.wordType),
+                      titleTextStyle: TextStyle(fontSize: 20, color: Colors.black),
+                      subtitleTextStyle: TextStyle(fontSize: 12, color: Colors.black87, ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),

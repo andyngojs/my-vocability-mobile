@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
 
-class AddWordDialog extends StatelessWidget {
+class AddWordDialog extends StatefulWidget {
+  const AddWordDialog({super.key, required this.onAddWord});
+
+  final Function(String, String, String) onAddWord;
+
+  @override
+  State<AddWordDialog> createState() => _AddWordDialogState();
+}
+
+class _AddWordDialogState extends State<AddWordDialog> {
   final _newWordController = TextEditingController();
   final _meaningController = TextEditingController();
 
-  final Function onAddWord;
+  String _selectedPartOfSpeech = '';
+  final List<String> _options = [
+    'Noun',
+    'Verb',
+    'Adjective',
+    'Adverb',
+    'Preposition',
+    'Conjunction',
+    'Interjection',
+  ];
 
-  AddWordDialog({super.key, required this.onAddWord});
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +48,7 @@ class AddWordDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Add New Word",
+                  'Add New Word',
                   style: TextStyle(fontSize: 24),
                   textAlign: TextAlign.center,
                 ),
@@ -45,7 +66,7 @@ class AddWordDialog extends StatelessWidget {
               controller: _newWordController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                label: Text("Từ mới"),
+                label: Text('new vocabulary'),
               ),
             ),
 
@@ -56,18 +77,30 @@ class AddWordDialog extends StatelessWidget {
               maxLines: 2,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                label: Text("Nghĩa tiếng việt"),
+                label: Text('Meaning Vietnamese'),
               ),
             ),
 
             const SizedBox(height: 12),
 
-            TextField(
-              controller: _meaningController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                label: Text("Nghĩa tiếng việt"),
-              ),
+            DropdownMenu(
+              label: Text('Part of Speech'),
+              width: double.infinity,
+              initialSelection: _selectedPartOfSpeech,
+              onSelected: (String? value) {
+                setState(() {
+                  if (value != null) {
+                    _selectedPartOfSpeech = value;
+                  } else {
+                    _selectedPartOfSpeech = _options[0];
+                  }
+                });
+              },
+              dropdownMenuEntries: _options.map<DropdownMenuEntry<String>>((
+                String value,
+              ) {
+                return DropdownMenuEntry<String>(value: value, label: value);
+              }).toList(),
             ),
 
             SizedBox(height: 40),
@@ -75,7 +108,14 @@ class AddWordDialog extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: () => onAddWord(),
+                onPressed: () {
+                  widget.onAddWord(
+                    _newWordController.text,
+                    _meaningController.text,
+                    _selectedPartOfSpeech,
+                  );
+                  Navigator.of(context).pop();
+                },
                 style: ButtonStyle(),
                 child: Text('Add'),
               ),
