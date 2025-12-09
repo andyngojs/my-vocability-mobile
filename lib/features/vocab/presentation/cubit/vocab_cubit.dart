@@ -4,6 +4,7 @@ import '../../domain/entities/vocabulary.dart';
 
 class VocabularyState {
   final List<Vocabulary> words;
+  final bool isLoading = false;
 
   VocabularyState({this.words = const []});
 
