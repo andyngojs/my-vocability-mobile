@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_vocability/features/vocab/domain/entities/vocabulary.dart';
+import 'package:my_vocability/features/vocab/domain/repository/vocabulary_repository.dart';
+import 'package:my_vocability/features/vocab/domain/usecase/vocabulary_usecase.dart';
 import 'package:my_vocability/features/vocab/presentation/cubit/vocab_cubit.dart';
 
 import 'package:my_vocability/features/vocab/presentation/widgets/add_word_dialog.dart';
@@ -13,6 +15,8 @@ class VocabPage extends StatefulWidget {
 }
 
 class _VocabPageState extends State<VocabPage> {
+  final VocabularyUseCase vocabUseCase = VocabularyUseCase(VocabularyRepository());
+
   void handleAddNewWord(String newWord, String meaning, String wordType) {
     final vocabulary = Vocabulary(
       name: newWord,
@@ -31,6 +35,18 @@ class _VocabPageState extends State<VocabPage> {
             handleAddNewWord(newWord, meaning, wordType),
       ),
     );
+  }
+
+  Future getPhoneTic() async {
+    print('djdnjd');
+    await vocabUseCase.getPhoneTicByWord('idle');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getPhoneTic();
   }
 
   @override

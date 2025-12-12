@@ -7,5 +7,9 @@ class VocabularyRepositoryImpl implements VocabularyRepository {
 
   VocabularyRepositoryImpl(this.dataSource);
 
-
+  @override
+  void findPhoneTicByWord(String word) {
+    print('findPhoneTicByWord in VocabularyRepositoryImpl');
+    dataSource.fetchWordPhoneTic(word);
+  }
 }
