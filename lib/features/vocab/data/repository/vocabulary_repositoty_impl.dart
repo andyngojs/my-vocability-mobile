@@ -3,9 +3,10 @@ import 'package:my_vocability/features/vocab/data/datasource/vocabulary_datasour
 import '../../domain/repository/vocabulary_repository.dart';
 
 class VocabularyRepositoryImpl implements VocabularyRepository {
+  @override
   late final VocabularyDataSource dataSource;
 
-  VocabularyRepositoryImpl(this.dataSource);
+  VocabularyRepositoryImpl();
 
   @override
   void findPhoneTicByWord(String word) {

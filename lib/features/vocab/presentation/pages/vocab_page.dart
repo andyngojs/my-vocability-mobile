@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_vocability/core/network/api_handler.dart';
 import 'package:my_vocability/features/vocab/domain/entities/vocabulary.dart';
 import 'package:my_vocability/features/vocab/domain/repository/vocabulary_repository.dart';
 import 'package:my_vocability/features/vocab/domain/usecase/vocabulary_usecase.dart';
 import 'package:my_vocability/features/vocab/presentation/cubit/vocab_cubit.dart';
 
 import 'package:my_vocability/features/vocab/presentation/widgets/add_word_dialog.dart';
+
+import '../../data/datasource/vocabulary_datasource.dart';
 
 class VocabPage extends StatefulWidget {
   const VocabPage({super.key});
@@ -15,7 +18,7 @@ class VocabPage extends StatefulWidget {
 }
 
 class _VocabPageState extends State<VocabPage> {
-  final VocabularyUseCase vocabUseCase = VocabularyUseCase(VocabularyRepository());
+  final VocabularyUseCase vocabUseCase = VocabularyUseCase(VocabularyRepository(VocabularyDataSource(ApiHandler(baseUrl: "https://api.dictionaryapi.dev/api"))));
 
   void handleAddNewWord(String newWord, String meaning, String wordType) {
     final vocabulary = Vocabulary(
@@ -37,16 +40,14 @@ class _VocabPageState extends State<VocabPage> {
     );
   }
 
-  Future getPhoneTic() async {
-    print('djdnjd');
-    await vocabUseCase.getPhoneTicByWord('idle');
+  Future getPhoneTic(String word) async {
+    await vocabUseCase.getPhoneTicByWord(word);
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getPhoneTic();
   }
 
   @override

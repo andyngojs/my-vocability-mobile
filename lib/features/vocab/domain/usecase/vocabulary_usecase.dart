@@ -6,7 +6,6 @@ class VocabularyUseCase {
   VocabularyUseCase(this.repository);
 
   Future getPhoneTicByWord(String word) async {
-    print('object');
     return repository.findPhoneTicByWord(word);
   }
 }
